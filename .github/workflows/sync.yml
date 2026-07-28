@@ -1,0 +1,48 @@
+name: Sync J/Z service calendar
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview changes without modifying the calendar"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: jz-calendar-sync
+  cancel-in-progress: false
+
+jobs:
+  test-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_CALENDAR_ID }}
+      TARGET_ROUTES: J,Z
+      INCLUDE_REALTIME_ALERTS: "false"
+      DRY_RUN: ${{ inputs.dry_run || 'false' }}
+      LOG_LEVEL: INFO
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: client-dashboard-461117
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: pytest
+      - name: Synchronize calendar
+        run: jz-calendar

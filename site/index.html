@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Subscribe to public calendars for upcoming planned J, Z, and L subway service changes."
+    />
+    <meta name="theme-color" content="#15130f" />
+    <meta property="og:title" content="Plan around the J, Z & L" />
+    <meta
+      property="og:description"
+      content="Planned NYC subway service changes, on your calendar."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>NYC Planned Subway Service Calendars</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Service Calendars home">
+        <span class="wordmark-mark" aria-hidden="true">NYC</span>
+        <span>Service Calendars</span>
+      </a>
+      <a class="header-link" href="#how-it-works">How it works</a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="eyebrow">
+          <span class="live-dot" aria-hidden="true"></span>
+          Updated from planned MTA alerts
+        </div>
+        <h1>Know before<br />you <em>go.</em></h1>
+        <p class="hero-copy">
+          Put upcoming J, Z, and L service changes on the calendar you already check.
+          Subscribe once; changes update automatically.
+        </p>
+        <a class="text-link" href="#calendars">
+          Choose a calendar <span aria-hidden="true">↓</span>
+        </a>
+        <div class="route-art" aria-hidden="true">
+          <div class="route-disc route-j">J</div>
+          <div class="route-disc route-z">Z</div>
+          <div class="route-disc route-l">L</div>
+          <div class="track track-one"></div>
+          <div class="track track-two"></div>
+        </div>
+      </section>
+
+      <section class="calendar-section" id="calendars" aria-labelledby="calendar-title">
+        <div class="section-heading">
+          <p class="section-kicker">Public calendars</p>
+          <h2 id="calendar-title">Pick your line.</h2>
+          <p>Google Calendar opens first. From there, add it to your account in one click.</p>
+        </div>
+
+        <div class="calendar-grid">
+          <article class="calendar-card card-jz">
+            <div class="card-topline">
+              <div class="route-pair" aria-label="J and Z trains">
+                <span class="small-disc route-j">J</span>
+                <span class="small-disc route-z">Z</span>
+              </div>
+              <span class="status-badge">New</span>
+            </div>
+            <div>
+              <h3>J/Z planned changes</h3>
+              <p>
+                Suspensions, reroutes, skipped stops, shuttle buses, and major service-pattern
+                changes that materially affect J or Z riders.
+              </p>
+            </div>
+            <a class="subscribe-button" id="jz-subscribe" href="#" aria-disabled="true">
+              <span>Subscribe to J/Z calendar</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <p class="setup-note" id="jz-setup-note">
+              Calendar owner: add the public J/Z Calendar ID in <code>site/config.js</code>.
+            </p>
+          </article>
+
+          <article class="calendar-card card-l">
+            <div class="card-topline">
+              <span class="small-disc route-l" aria-label="L train">L</span>
+              <span class="status-badge original">Original</span>
+            </div>
+            <div>
+              <h3>L planned closures</h3>
+              <p>
+                The original public calendar for planned L-train closures—the project that
+                inspired this J/Z calendar.
+              </p>
+              <a
+                class="card-credit"
+                href="https://www.reddit.com/r/Bushwick/comments/1dj2t3o/i_made_a_google_cal_which_lets_you_know_when_the/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Created by Reddit user alexmerm; read the original Reddit post"
+              >
+                <span class="credit-avatar" aria-hidden="true">u/</span>
+                <span>
+                  <strong>Created by u/alexmerm</strong>
+                  <small>Read the original Reddit post ↗</small>
+                </span>
+              </a>
+            </div>
+            <a
+              class="subscribe-button secondary"
+              id="l-subscribe"
+              href="https://calendar.google.com/calendar/render?cid=bc2093788a424ad7fc46175a675a7482e90d02136e46f2266dcc99df3a44e279%40group.calendar.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Subscribe to L calendar</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="how-section" id="how-it-works" aria-labelledby="how-title">
+        <div>
+          <p class="section-kicker">How it works</p>
+          <h2 id="how-title">Plan with fewer surprises.</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-number">01</span>
+            <div>
+              <h3>Subscribe once</h3>
+              <p>Add a public calendar to Google Calendar. It appears beside your own events.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-number">02</span>
+            <div>
+              <h3>See planned work</h3>
+              <p>Upcoming service changes show up on the dates and times they are scheduled.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-number">03</span>
+            <div>
+              <h3>Stay in sync</h3>
+              <p>New, changed, and canceled planned work is synchronized automatically.</p>
+            </div>
+          </li>
+        </ol>
+        <p class="disclaimer">
+          Unofficial community tools using information sourced from the MTA. Service information
+          may change; check <a href="https://www.mta.info/" target="_blank" rel="noopener">mta.info</a>
+          before travel.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        The L Train Planned Closure Calendar was created by
+        <a
+          href="https://www.reddit.com/r/Bushwick/comments/1dj2t3o/i_made_a_google_cal_which_lets_you_know_when_the/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >u/alexmerm on Reddit</a
+        >.
+      </p>
+      <p>
+        View the
+        <a
+          href="https://github.com/alexmerm/LTrainClosureCalendar"
+          target="_blank"
+          rel="noopener noreferrer"
+          >original open-source project</a
+        >.
+      </p>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
