@@ -55,6 +55,25 @@ class GoogleCalendarClient:
         self.service = build("calendar", "v3", credentials=credentials, cache_discovery=False)
         self.calendar_id = calendar_id
 
+    def create_owned_public_calendar(self, summary: str, description: str) -> str:
+        calendar = (
+            self.service.calendars()
+            .insert(
+                body={
+                    "summary": summary,
+                    "description": description,
+                    "timeZone": "America/New_York",
+                }
+            )
+            .execute()
+        )
+        calendar_id = calendar["id"]
+        self.service.acl().insert(
+            calendarId=calendar_id,
+            body={"scope": {"type": "default"}, "role": "reader"},
+        ).execute()
+        return str(calendar_id)
+
     def managed_events(self, time_min: str) -> Iterator[dict[str, Any]]:
         page_token: str | None = None
         while True:

@@ -19,6 +19,7 @@ dev = ["pytest>=8.3,<9", "pytest-cov>=6,<7", "ruff>=0.9,<1"]
 
 [project.scripts]
 jz-calendar = "jz_calendar.main:main"
+jz-calendar-bootstrap = "jz_calendar.bootstrap:main"
 
 [tool.setuptools.packages.find]
 include = ["jz_calendar*"]
