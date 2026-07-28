@@ -73,6 +73,13 @@ start time.
 The default deployment intentionally uses short-lived credentials and works when the
 `iam.disableServiceAccountKeyCreation` organization policy is enforced.
 
+If Workspace policy prevents an external service account from receiving write access, run the
+manual **Bootstrap service-account-owned calendar** workflow with confirmation `CREATE`. It creates
+a dedicated public calendar owned by the automation identity and prints its Calendar ID. Store that
+ID in `GOOGLE_CALENDAR_ID` and in `site/config.js`. This avoids changing Workspace sharing policy;
+the tradeoff is that Google does not allow ownership of a service-account-owned calendar to be
+transferred later.
+
 ## Local development
 
 ```bash
