@@ -58,6 +58,10 @@ start time.
    account. No downloadable key is required for the default GitHub deployment.
 3. In the calendar's **Settings and sharing**, share the calendar with the service account's
    `client_email` and grant **Make changes to events**.
+   If Google Workspace policy disables write access for external identities, create an internal,
+   invited-only group, add the service account as its only automation member, and grant that group
+   **Make changes and see all event details** instead. Group membership and Calendar ACL changes
+   can take several minutes to propagate.
 4. Copy the value under **Integrate calendar → Calendar ID**.
 5. To make it publicly subscribable, under **Access permissions for events** enable
    **Make available to public**. Public viewers can use the calendar's public iCal address or add
