@@ -3,9 +3,9 @@
   --paper: #f2ecdf;
   --paper-deep: #e7dece;
   --cream: #fffaf0;
-  --ochre: #a96f16;
+  --ochre: #8e5c33;
   --ochre-bright: #d79122;
-  --gray: #7c7b78;
+  --gray: #7c858c;
   --line: rgba(21, 19, 15, 0.18);
   --sans: "DM Sans", system-ui, sans-serif;
   --serif: "Newsreader", Georgia, serif;
@@ -262,7 +262,7 @@ h1 em {
 }
 
 .card-jz {
-  background: var(--ink);
+  background: var(--ochre);
   color: var(--cream);
 }
 
@@ -412,6 +412,29 @@ h1 em {
 
 .setup-note code {
   color: var(--cream);
+}
+
+.color-note {
+  font-size: 12px;
+  margin: 12px 0 0;
+  opacity: 0.78;
+}
+
+.color-swatch {
+  border: 1px solid currentColor;
+  display: inline-block;
+  height: 10px;
+  margin-right: 5px;
+  vertical-align: -1px;
+  width: 10px;
+}
+
+.color-swatch.jz {
+  background: #8e5c33;
+}
+
+.color-swatch.l {
+  background: #7c858c;
 }
 
 .how-section {
