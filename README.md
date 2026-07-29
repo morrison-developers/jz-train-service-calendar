@@ -21,7 +21,9 @@ does not enter the calendar merely because the station is on the J/Z corridor.
 Eligible alerts must then match a material structured MTA alert type: part/full suspension,
 reroute, express/local change, stops skipped, reduced service, or special schedule. Text matching
 is a secondary fallback for no-train/suspension language, reroutes, early termination, station
-bypasses, shuttle buses, major frequency reductions, and suspended Z skip-stop service.
+bypasses, shuttle buses, major frequency reductions, and suspended Z skip-stop service. Quantified
+frequency alerts are treated as major only at headways of 12 minutes or longer; routine notices
+such as “trains run every 10 minutes” are excluded.
 Delay-only, elevator, boarding-only, station-notice, and general informational alerts are excluded
 by default. Extra-service alerts are excluded unless they explicitly describe another train
 running via the J line, which is treated as a reroute affecting J riders.

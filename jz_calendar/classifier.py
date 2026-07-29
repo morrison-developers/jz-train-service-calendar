@@ -17,6 +17,9 @@ SUPPORTED_TYPES: dict[str, DisruptionCategory] = {
     "Special Schedule": DisruptionCategory.SERVICE_PATTERN,
 }
 
+MAJOR_FREQUENCY_MINUTES = 12
+FREQUENCY_PATTERN = re.compile(r"\bevery\s+(\d+)\s+minutes?\b", re.I)
+
 TEXT_CATEGORIES: tuple[tuple[re.Pattern[str], DisruptionCategory], ...] = (
     (
         re.compile(r"\b(skip[- ]stop|z service).{0,45}\b(suspend|not run)", re.I),
@@ -37,10 +40,6 @@ TEXT_CATEGORIES: tuple[tuple[re.Pattern[str], DisruptionCategory], ...] = (
         DisruptionCategory.SKIPPED_STATIONS,
     ),
     (re.compile(r"\b(express|local service)\b", re.I), DisruptionCategory.SERVICE_PATTERN),
-    (
-        re.compile(r"\b(every \d+ minutes|reduced service|less frequent)\b", re.I),
-        DisruptionCategory.REDUCED_SERVICE,
-    ),
 )
 
 
@@ -61,6 +60,20 @@ def _routes_named_in_text(text: str, targets: frozenset[str]) -> frozenset[str]:
     if re.search(r"\bJ\s*/\s*Z\b|\bJ\s+and\s+Z\b", text, re.I):
         named.update({"J", "Z"} & targets)
     return frozenset(named)
+
+
+def _is_major_frequency_reduction(text: str) -> bool:
+    intervals = [int(value) for value in FREQUENCY_PATTERN.findall(text)]
+    if intervals:
+        return max(intervals) >= MAJOR_FREQUENCY_MINUTES
+    return bool(
+        re.search(
+            r"\b(major|significant(?:ly)?|substantial(?:ly)?|much)\b.{0,30}"
+            r"\b(reduced service|less frequent|longer waits?)\b",
+            text,
+            re.I,
+        )
+    )
 
 
 def classify(
@@ -87,6 +100,11 @@ def classify(
             if fallback_category == DisruptionCategory.SKIP_STOP_SUSPENDED or category is None:
                 category = fallback_category
             break
+    major_frequency_reduction = _is_major_frequency_reduction(text)
+    if category is None and major_frequency_reduction:
+        category = DisruptionCategory.REDUCED_SERVICE
+    if category == DisruptionCategory.REDUCED_SERVICE and not major_frequency_reduction:
+        return Classification(False, affected, reason="routine or minor frequency change")
     if category is None:
         return Classification(False, affected, reason="not a material disruption category")
     return Classification(True, affected, category, "material J/Z planned service change")

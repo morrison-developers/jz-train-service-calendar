@@ -111,3 +111,27 @@ def test_other_train_running_via_j_line(make_entity, feed):
     result = classify(alert, TARGETS)
     assert result.included
     assert result.category == DisruptionCategory.REROUTE
+
+
+def test_routine_ten_minute_frequency_is_excluded(make_entity, feed):
+    alert = parsed(
+        make_entity,
+        feed,
+        alert_type="Reduced Service",
+        header="[J] trains run every 10 minutes",
+    )
+    result = classify(alert, TARGETS)
+    assert not result.included
+    assert result.reason == "routine or minor frequency change"
+
+
+def test_major_frequency_reduction_is_included(make_entity, feed):
+    alert = parsed(
+        make_entity,
+        feed,
+        alert_type="Reduced Service",
+        header="[J] trains run every 15 minutes",
+    )
+    result = classify(alert, TARGETS)
+    assert result.included
+    assert result.category == DisruptionCategory.REDUCED_SERVICE
